@@ -370,10 +370,12 @@ def build_marker_db(args, genomes, species):
 					outpath=hmmpath,
 					threads=args['threads'])
 			fna = marker_genes.parse_fasta(genome.files['ffn'])
+			print(fna)
 			for h in marker_genes.find_hits(
 					inpath='%s/%s.hmmsearch' % (marker_genes.tmp, genome.id),
 					max_evalue=1e-5,
 					min_cov=0.00):
+				print(h['quert])
 				gene = fna[h['query']].upper()
 				info = [sp.id, genome.id, h['query'], len(gene), h['target']]
 				marker_genes.info.write('\t'.join([str(_) for _ in info])+'\n')
